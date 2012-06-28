@@ -1,5 +1,0 @@
-p15 : p15.c
-	cc p15.c -o p15
-
-ds : pe_linked_list.c
-	cc pe_linked_list.c -o pe_linked_list
