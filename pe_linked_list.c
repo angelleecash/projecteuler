@@ -29,7 +29,7 @@ PeLinkedListNode* peLinkedListInsert(PeLinkedList* list, int index, void* data)
   return node;
 }
 
-int peLinkedListNodeLength(PeLinkedList* list)
+int peLinkedListLength(PeLinkedList* list)
 {
   PeLinkedListNode* node = list->head.next;
 
@@ -42,11 +42,10 @@ int peLinkedListNodeLength(PeLinkedList* list)
   return length;
 }
 
-void peLinkedListRemove(PeLinkedList* list, int index)
+void* peLinkedListRemove(PeLinkedList* list, int index)
 {
   PeLinkedListNode* previous = &(list->head);
   PeLinkedListNode* node = previous->next;
-
 
   while(index > 0)
   {
@@ -63,8 +62,20 @@ void peLinkedListRemove(PeLinkedList* list, int index)
   {
     previous->next = NULL;
   }
-
+  void* data = node->data;
   free(node);
+  return data;
+}
+
+void* peLinkedListGet(PeLinkedList* list, int index)
+{
+  PeLinkedListNode* node = (list->head).next;
+  while(index > 0)
+  {
+    node = node->next;
+    index --;
+  }
+  return node->data;
 }
 
 int peLinkedListIndexOf(PeLinkedList* list, void* data)
@@ -84,3 +95,4 @@ int peLinkedListIndexOf(PeLinkedList* list, void* data)
   }
   return index;
 }
+

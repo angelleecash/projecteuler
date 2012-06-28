@@ -17,6 +17,7 @@ typedef struct
 
 void peLinkedListInit(PeLinkedList* list);
 PeLinkedListNode* peLinkedListInsert(PeLinkedList* list, int index, void* data);
-int peLinkedListNodeLength(PeLinkedList* list);
-void peLinkedListRemove(PeLinkedList* list, int index);
+int peLinkedListLength(PeLinkedList* list);
+void* peLinkedListRemove(PeLinkedList* list, int index);
+void* peLinkedListGet(PeLinkedList* list, int index);
 int peLinkedListIndexOf(PeLinkedList* list, void* data);

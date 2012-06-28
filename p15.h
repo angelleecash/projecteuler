@@ -8,4 +8,4 @@ typedef struct
   int downVisited;
 } GridNode;
 
-void gridNodeInit(GridNode* node);
+void gridNodeInit(GridNode* node, int x, int y);
