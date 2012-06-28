@@ -1,6 +1,6 @@
 #include "pe_linked_list.h"
 
-void peLinedListNodeInit(PeLinkedListNode* node, PeLinedListNode* next, void* data)
+void peLinkedListNodeInit(PeLinkedListNode* node, PeLinkedListNode* next, void* data)
 {
   node->next = next;
   node->data = data;
@@ -64,10 +64,23 @@ void peLinkedListRemove(PeLinkedList* list, int index)
     previous->next = NULL;
   }
 
-  delete node;
+  free(node);
 }
 
 int peLinkedListIndexOf(PeLinkedList* list, void* data)
 {
-  return 0;
+  int index = -1;
+  int current = 0;
+  PeLinkedListNode* node = (list->head).next;
+  while(node)
+  {
+    if(node->data == data)
+    {
+      index = current;
+      break;
+    }
+    node = node->next;
+    current++;
+  }
+  return index;
 }
