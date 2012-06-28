@@ -1,4 +1,4 @@
 projecteuler
 ============
 
-Code base for project euler
+This is my project for playing with projecteuler and practicing coding in c, also for practicing using emacs.
