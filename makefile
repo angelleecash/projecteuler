@@ -1,5 +1,5 @@
-p15 : ds p15.c
-	cc pe_linked_list.c pe_stack.c p15.c -o p15
+p15 : ds p15.h p15.c
+	cc pe_linked_list.o pe_stack.o p15.c -o p15
 
 ds : pe_linked_list pe_stack 
 

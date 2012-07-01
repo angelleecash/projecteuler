@@ -1,3 +1,6 @@
+#ifndef PE_STACK_H
+#define PE_STACK_H
+
 #include "pe_linked_list.h"
 
 typedef struct
@@ -11,3 +14,5 @@ void* peStackPop(PeStack* stack);
 int peStackEmpty(PeStack* stack);
 void* peStackPeek(PeStack* stack);
 void peStackDestroy(PeStack* stack);
+
+#endif

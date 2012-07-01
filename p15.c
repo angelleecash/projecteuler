@@ -39,7 +39,7 @@ int main()
   peStackInit(&stack);
 
   pushNewNode(&stack, 0, 0);
-  int count = 0;
+  unsigned int count = 0;
   
   while(!peStackEmpty(&stack))
   {
@@ -61,6 +61,7 @@ int main()
       if(node->x == numCols && node->y == numRows)
       {
 	  count ++;
+	  //printf("Path found %d.\n", count);
       }
       free(node);
       node = NULL;

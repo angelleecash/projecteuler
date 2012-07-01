@@ -1,0 +1,90 @@
+
+pe_stack.o:     file format elf32-i386
+
+
+Disassembly of section .text:
+
+00000000 <peStackInit>:
+   0:	55                   	push   %ebp
+   1:	89 e5                	mov    %esp,%ebp
+   3:	83 ec 18             	sub    $0x18,%esp
+   6:	8b 45 08             	mov    0x8(%ebp),%eax
+   9:	89 04 24             	mov    %eax,(%esp)
+   c:	e8 fc ff ff ff       	call   d <peStackInit+0xd>
+  11:	c9                   	leave  
+  12:	c3                   	ret    
+
+00000013 <peStackPush>:
+  13:	55                   	push   %ebp
+  14:	89 e5                	mov    %esp,%ebp
+  16:	83 ec 18             	sub    $0x18,%esp
+  19:	8b 45 08             	mov    0x8(%ebp),%eax
+  1c:	89 04 24             	mov    %eax,(%esp)
+  1f:	e8 fc ff ff ff       	call   20 <peStackPush+0xd>
+  24:	8b 55 08             	mov    0x8(%ebp),%edx
+  27:	8b 4d 0c             	mov    0xc(%ebp),%ecx
+  2a:	89 4c 24 08          	mov    %ecx,0x8(%esp)
+  2e:	89 44 24 04          	mov    %eax,0x4(%esp)
+  32:	89 14 24             	mov    %edx,(%esp)
+  35:	e8 fc ff ff ff       	call   36 <peStackPush+0x23>
+  3a:	c9                   	leave  
+  3b:	c3                   	ret    
+
+0000003c <peStackPop>:
+  3c:	55                   	push   %ebp
+  3d:	89 e5                	mov    %esp,%ebp
+  3f:	83 ec 18             	sub    $0x18,%esp
+  42:	8b 45 08             	mov    0x8(%ebp),%eax
+  45:	89 04 24             	mov    %eax,(%esp)
+  48:	e8 fc ff ff ff       	call   49 <peStackPop+0xd>
+  4d:	8d 50 ff             	lea    -0x1(%eax),%edx
+  50:	8b 45 08             	mov    0x8(%ebp),%eax
+  53:	89 54 24 04          	mov    %edx,0x4(%esp)
+  57:	89 04 24             	mov    %eax,(%esp)
+  5a:	e8 fc ff ff ff       	call   5b <peStackPop+0x1f>
+  5f:	c9                   	leave  
+  60:	c3                   	ret    
+
+00000061 <peStackEmpty>:
+  61:	55                   	push   %ebp
+  62:	89 e5                	mov    %esp,%ebp
+  64:	83 ec 18             	sub    $0x18,%esp
+  67:	8b 45 08             	mov    0x8(%ebp),%eax
+  6a:	89 04 24             	mov    %eax,(%esp)
+  6d:	e8 fc ff ff ff       	call   6e <peStackEmpty+0xd>
+  72:	85 c0                	test   %eax,%eax
+  74:	0f 9e c0             	setle  %al
+  77:	0f b6 c0             	movzbl %al,%eax
+  7a:	c9                   	leave  
+  7b:	c3                   	ret    
+
+0000007c <peStackPeek>:
+  7c:	55                   	push   %ebp
+  7d:	89 e5                	mov    %esp,%ebp
+  7f:	83 ec 18             	sub    $0x18,%esp
+  82:	8b 45 08             	mov    0x8(%ebp),%eax
+  85:	89 04 24             	mov    %eax,(%esp)
+  88:	e8 fc ff ff ff       	call   89 <peStackPeek+0xd>
+  8d:	8d 50 ff             	lea    -0x1(%eax),%edx
+  90:	8b 45 08             	mov    0x8(%ebp),%eax
+  93:	89 54 24 04          	mov    %edx,0x4(%esp)
+  97:	89 04 24             	mov    %eax,(%esp)
+  9a:	e8 fc ff ff ff       	call   9b <peStackPeek+0x1f>
+  9f:	c9                   	leave  
+  a0:	c3                   	ret    
+
+000000a1 <peStackDestroy>:
+  a1:	55                   	push   %ebp
+  a2:	89 e5                	mov    %esp,%ebp
+  a4:	83 ec 18             	sub    $0x18,%esp
+  a7:	eb 0b                	jmp    b4 <peStackDestroy+0x13>
+  a9:	8b 45 08             	mov    0x8(%ebp),%eax
+  ac:	89 04 24             	mov    %eax,(%esp)
+  af:	e8 fc ff ff ff       	call   b0 <peStackDestroy+0xf>
+  b4:	8b 45 08             	mov    0x8(%ebp),%eax
+  b7:	89 04 24             	mov    %eax,(%esp)
+  ba:	e8 fc ff ff ff       	call   bb <peStackDestroy+0x1a>
+  bf:	85 c0                	test   %eax,%eax
+  c1:	74 e6                	je     a9 <peStackDestroy+0x8>
+  c3:	c9                   	leave  
+  c4:	c3                   	ret    

@@ -1,5 +1,7 @@
-#include <stdlib.h>
+#ifndef PE_LINKED_LIST_H
+#define PE_LINKED_LIST_H
 
+#include <stdlib.h>
 
 typedef struct PeLinkedListNode
 {
@@ -21,3 +23,5 @@ int peLinkedListLength(PeLinkedList* list);
 void* peLinkedListRemove(PeLinkedList* list, int index);
 void* peLinkedListGet(PeLinkedList* list, int index);
 int peLinkedListIndexOf(PeLinkedList* list, void* data);
+
+#endif
