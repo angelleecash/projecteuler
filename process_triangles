@@ -1,0 +1,1 @@
+cat triangles | sed -e "s/ /,/g" | awk 'BEGIN{print("int triangles[]={")}{print($0",")}END{print("};")}'

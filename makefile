@@ -1,3 +1,6 @@
+p18 : pe_util.h pe_util.c p18.c
+	cc p18.c pe_util.c -o p18
+
 p16 : p16.c
 	cc p16.c -o p16
 
