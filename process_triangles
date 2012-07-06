@@ -1,1 +1,1 @@
-cat triangles | sed -e "s/ /,/g" | awk 'BEGIN{print("int triangles[]={")}{print($0",")}END{print("};")}'
+cat triangles | sed -e "s/ /,/g" | sed -e "s/09/9/g" | sed -e "s/08/8/g" | sed -e "s/\r//g" | awk 'BEGIN{print("int triangles[]={")}{print($0",")}END{print("};")}'
