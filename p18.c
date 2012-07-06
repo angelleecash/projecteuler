@@ -5,10 +5,11 @@
 typedef struct Node
 {
   int childCost;
-
   int cost;
   int offset;
   int row;
+
+  struct Node* next;
 } Node;
 /*
 int triangles[]={
@@ -148,12 +149,8 @@ int triangles[]={
 23,33,44,81,80,92,93,75,94,88,23,61,39,76,22,03,28,94,32,06,49,65,41,34,18,23,8,47,62,60,03,63,33,13,80,52,31,54,73,43,70,26,16,69,57,87,83,31,03,93,70,81,47,95,77,44,29,68,39,51,56,59,63,07,25,70,07,77,43,53,64,03,94,42,95,39,18,01,66,21,16,97,20,50,90,16,70,10,95,69,29,06,25,61,41,26,15,59,63,35,
 };
 
-
-int main()
+int getRowCount(int numNodes)
 {
-
-  int numNodes = sizeof(triangles) / sizeof(int);
-
   int numRows = 0;
   int nodeCount = 0;
    while(nodeCount != numNodes)
@@ -161,21 +158,41 @@ int main()
       nodeCount += numRows + 1;
       numRows++;
     }
-  printf("nodes %d, rows %d.\n", numNodes, numRows);
+   return numRows;
+}
+
+void printTrace(Node* p)
+{
+  while(p)
+    {
+      printf("%d%s", p->cost, p->next ? "->": ".\n");
+      p = p->next;
+    }
+}
+
+void nodeInit(Node* p, int cost, int offset, int row, int childCost, Node* next)
+{
+  p->cost = cost;
+  p->offset = offset;
+  p->row = row;
+  p->childCost = childCost;
+  p->next = next;
+}
+
+int main()
+{
+  int numNodes = sizeof(triangles) / sizeof(int);
+  int numRows = getRowCount(numNodes);
+
   Node* nodes = (Node*)malloc(numNodes * sizeof(Node));
-  int count = 0;
-  int i = 1;
+  int count = 0, i = 1;
   for(; i <= numRows; i++)
     {
       int j=0;
       for(;j < i;j++)
 	{
 	  int offset = count + j;
-	  Node* p = &nodes[offset];
-	  p->cost = triangles[offset];
-	  p->offset = offset;
-	  p->row = i;
-	  p->childCost = 0;
+	  nodeInit(&nodes[offset], triangles[offset], offset, i, 0, NULL);
 	}
 
       count += i;
@@ -188,44 +205,21 @@ int main()
       int rpOffset = p->offset - p->row + 1;
       Node* lp = &nodes[lpOffset];
       Node* rp = &nodes[rpOffset];
-      if(lp->row == p->row - 1 && lp->childCost <= p->cost)
+      int pCost = p->cost + p->childCost;
+      if(lp->row == p->row - 1 && lp->childCost <= pCost)
       {
-	lp->childCost = p->cost;
+	lp->childCost = pCost;
+	lp->next = p;
       }
 
-      if(rp->row == p->row - 1 && rp->childCost <= p->cost)
+      if(rp->row == p->row - 1 && rp->childCost <= pCost)
       {
-	rp->childCost = p->cost;
+	rp->childCost = pCost;
+	rp->next = p;
       }
     }
-  int cost = 0;
-  Node* p = &nodes[0];
-  while(p)
-    {
-      cost += p->cost;
-      printf("%d", p->cost);
 
-      if(p->row == numRows)
-	{
-	  printf(".\n");
-	  break;
-	}
-
-      printf("->", p->cost);
-      int lcOffset = p->offset + p->row;
-      int rcOffset = p->offset + p->row + 1;
-
-      Node* lc = &nodes[lcOffset];
-      Node* rc = &nodes[rcOffset];
-      if(lc->cost + lc->childCost >= rc->cost + rc->childCost)
-	{
-	  p = lc;
-	}
-      else
-	{
-	  p = rc;
-	}
-    }
-  printf("Cost %d.\n", cost);
+  printTrace(&nodes[0]);
+  printf("Cost %d.\n", nodes[0].cost + nodes[0].childCost);
   return 0;
 }
